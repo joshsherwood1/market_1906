@@ -24,4 +24,18 @@ class Market
     end
     vendors_that_sell_item
   end
+
+  def total_inventory
+    all_items_and_their_count_hash = Hash.new(0)
+    @vendors.map do |vendor|
+      vendor.inventory.each do |key, value|
+        all_items_and_their_count_hash[key] += value
+      end
+    end
+    all_items_and_their_count_hash
+  end
+
+  def sorted_item_list
+    total_inventory.keys.sort {|a, b| a <=> b}
+  end
 end
