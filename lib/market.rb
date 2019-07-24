@@ -38,4 +38,15 @@ class Market
   def sorted_item_list
     total_inventory.keys.sort {|a, b| a <=> b}
   end
+
+  def sell(item, quantity)
+    if total_inventory.has_key?(item) && total_inventory[item] >= quantity
+      @vendors.each do |vendor|
+        vendor.inventory[item] -= quantity until vendor.inventory[item] == 0
+      end
+      return true
+    else
+      return false
+    end
+  end
 end
